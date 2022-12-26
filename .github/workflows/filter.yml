@@ -1,0 +1,31 @@
+name: "Filter Apps"
+description: "Pushes built artifacts to Docker"
+
+inputs:
+  package:
+    description: “package name”
+    required: true
+  directory:
+    description: “directory”
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: ${{ inputs.package }} changed in last commit?
+      id: hasChanged
+      uses: Trampoline-CX/action-turbo-changed@v1
+      with:
+        workspace: ${{ inputs.package }}
+        from: HEAD^1 
+        working-directory: $ {{ inputs.directory }}
+
+    - name: Validate Action Output
+      id: validateChange
+      if: steps.hasChanged.outputs.changed == 'true'
+      run: CHANGED={{ inputs.package }} >> $GITHUB_OUTPUT
