@@ -4,18 +4,14 @@ description: "Pushes built artifacts to Docker"
 inputs:
   workspace:
     description: “package name”
-    required: true
+    required: false
   working-directory:
     description: “directory”
-    required: true
+    required: false
 
 runs:
   using: "composite"
   steps:
-#     - name: Checkout
-#       uses: actions/checkout@v3
-#       with:
-#         fetch-depth: 0
     - name: changed in last commit?
       id: hasChanged
       uses: Trampoline-CX/action-turbo-changed@v1
@@ -23,9 +19,9 @@ runs:
         workspace: ${{ inputs.workspace }}
         from: HEAD^1 
         working-directory: ${{ inputs.working-directory }}
-
-#     - name: Validate Action Output
-#       id: validateChange
-#       if: steps.hasChanged.outputs.changed == 'true'
-#       shell: bash  
-#       run: CHANGED={{ inputs.workspace }} >> $GITHUB_OUTPUT
+        
+    - name: Validate Action Output
+      id: validateChange
+      if: steps.hasChanged.outputs.changed == 'true'
+      shell: bash  
+      run: CHANGED={{ inputs.workspace }} >> $GITHUB_OUTPUT
