@@ -16,16 +16,16 @@ runs:
 #       uses: actions/checkout@v3
 #       with:
 #         fetch-depth: 0
-    - name: ${{ inputs.package }} changed in last commit?
+    - name: ${{ inputs.workspace }} changed in last commit?
       id: hasChanged
       uses: Trampoline-CX/action-turbo-changed@v1
       with:
-        workspace: ${{ inputs.package }}
+        workspace: ${{ inputs.workspace }}
         from: HEAD^1 
-        working-directory: ${{ inputs.directory }}
+        working-directory: ${{ inputs.working-directory }}
 
     - name: Validate Action Output
       id: validateChange
       if: steps.hasChanged.outputs.changed == 'true'
       shell: bash  
-      run: CHANGED={{ inputs.package }} >> $GITHUB_OUTPUT
+      run: CHANGED={{ inputs.workspace }} >> $GITHUB_OUTPUT
