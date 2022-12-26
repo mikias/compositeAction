@@ -5,6 +5,9 @@ inputs:
   workspace:
     description: “package name”
     required: false
+  from:
+    description: “from”
+    required: false
   working-directory:
     description: “directory”
     required: false
