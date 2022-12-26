@@ -22,7 +22,7 @@ runs:
       with:
         workspace: ${{ inputs.package }}
         from: HEAD^1 
-        working-directory: $ {{ inputs.directory }}
+        working-directory: ${{ inputs.directory }}
 
     - name: Validate Action Output
       id: validateChange
