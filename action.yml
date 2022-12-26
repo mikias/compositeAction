@@ -27,4 +27,5 @@ runs:
     - name: Validate Action Output
       id: validateChange
       if: steps.hasChanged.outputs.changed == 'true'
+      shell: bash  
       run: CHANGED={{ inputs.package }} >> $GITHUB_OUTPUT
