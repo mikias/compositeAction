@@ -2,10 +2,10 @@ name: "Filter Apps"
 description: "Pushes built artifacts to Docker"
 
 inputs:
-  package:
+  workspace:
     description: “package name”
     required: true
-  directory:
+  working-directory:
     description: “directory”
     required: true
 
